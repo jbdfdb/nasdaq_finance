@@ -4,11 +4,12 @@
 # Ignore Python virtual environments
 .venv/
 
-# Ignore Python lock and config files
+# Ignore Python lock and config files except poetry.lock, pyproject.toml, and .python-version
 Pipfile
 Pipfile.lock
-poetry.lock
-pyproject.toml
 
-# Do not ignore requirements.txt
+# Do not ignore requirements.txt, poetry.lock, pyproject.toml, .python-version
 !requirements.txt
+!poetry.lock
+!pyproject.toml
+!.python-version
