@@ -46,7 +46,13 @@ You can install the required packages using pip and the provided `requirements.t
 pip install -r requirements.txt
 ```
 
-If you need to install them manually:
+If you use Poetry for dependency management, you can also use the provided `pyproject.toml` and `poetry.lock` files:
+
+```
+poetry install
+```
+
+If you need to install them manuellement :
 
 - Python Requests, to make requests and download the HTML content of the pages (http://docs.python-requests.org/en/master/user/install/)
 - Python LXML, for parsing the HTML Tree Structure using Xpaths (Learn how to install that here – http://lxml.de/installation.html)

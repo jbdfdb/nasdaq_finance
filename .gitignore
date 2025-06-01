@@ -4,7 +4,7 @@
 # Ignore Python virtual environments
 .venv/
 
-# Ignore Python lock and config files except poetry.lock, pyproject.toml, and .python-version
+git push origin master# Ignore Python lock and config files except poetry.lock, pyproject.toml, and .python-version
 Pipfile
 Pipfile.lock
 
