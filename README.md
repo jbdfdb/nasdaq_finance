@@ -18,7 +18,7 @@ This nasdaq scraper can extract the fields below
 6. 52 Week High/Low
 7. Market Cap
 8. P/E Ratio
-9.Forward P/E (1y)
+9. Forward P/E (1y)
 10. Earnings Per Share (EPS)
 11. Annualized Dividend
 12. Ex-Dividend Date
@@ -40,23 +40,42 @@ Below are the package requirements:
 
 ### Installation
 
-PIP to install the following packages in Python (https://pip.pypa.io/en/stable/installing/) 
+You can install the required packages using pip and the provided `requirements.txt` file:
 
-Python Requests, to make requests and download the HTML content of the pages (http://docs.python-requests.org/en/master/user/install/)
+```
+pip install -r requirements.txt
+```
 
-Python LXML, for parsing the HTML Tree Structure using Xpaths (Learn how to install that here – http://lxml.de/installation.html)
+If you need to install them manually:
+
+- Python Requests, to make requests and download the HTML content of the pages (http://docs.python-requests.org/en/master/user/install/)
+- Python LXML, for parsing the HTML Tree Structure using Xpaths (Learn how to install that here – http://lxml.de/installation.html)
+
+## .gitignore
+
+The repository includes a `.gitignore` file that:
+
+- Ignores all JSON output files (`*-summary.json`) produced by the scraper.
+- Ignores Python virtual environments (`.venv/`).
+- Ignores Python lock/config files (`Pipfile`, `Pipfile.lock`, `poetry.lock`, `pyproject.toml`).
+- Does **not** ignore `requirements.txt` (so it is tracked in the repo).
 
 ## Running the scraper
-We would execute the code with the script name followed by the ticker symbol of the company’s stock data you would like. As an example
-here is the command to find the summary data for Apple Inc. 
+
+The script now uses the public NASDAQ API to fetch data. Be aware that NASDAQ may restrict or block access if you make too many requests in a short period.
+
+You can execute the code with the script name followed by the ticker symbol of the company’s stock data you would like. For example, to find the summary data for Apple Inc.:
 
 ```
-python3 masdaq_finance.py aapl
+python3 nasdaq_finance.py AAPL
 ```
-## Sample Output
 
-This will create a json file:
+## Output
+
+This will create a JSON file named `<TICKER>-summary.json` (for example, `AAPL-summary.json`) containing the extracted data for the requested stock.
+
+These JSON files can be used for further analysis, visualization, or as input for other applications. The project does not provide a display or visualization tool for these files.
 
 [Sample Output](https://raw.githubusercontent.com/scrapehero/nasdaq_finance/master/AAPL-summary.json)
- 
- 
+
+
