@@ -78,10 +78,30 @@ python3 nasdaq_finance.py AAPL
 
 ## Output
 
-This will create a JSON file named `<TICKER>-summary.json` (for example, `AAPL-summary.json`) containing the extracted data for the requested stock.
+This will create a JSON file named `tickers/<TICKER>-summary.json` (for example, `tickers/AAPL-summary.json`) containing the extracted data for the requested stock.
 
 These JSON files can be used for further analysis, visualization, or as input for other applications. The project does not provide a display or visualization tool for these files.
 
-[Sample Output](https://raw.githubusercontent.com/scrapehero/nasdaq_finance/master/AAPL-summary.json)
+## Version Control
+
+All generated JSON files are now stored in the `tickers/` directory, which is excluded from version control via `.gitignore`.
+
+## Project Structure
+
+```
+nasdaq_finance/
+│
+├── src/
+│   ├── app.py
+│   └── nasdaq_finance.py
+├── tickers/           # <-- All generated JSON files go here (not versioned)
+├── static/
+│   └── app.js
+├── templates/
+│   └── index.html
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
 

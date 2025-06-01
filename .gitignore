@@ -1,10 +1,10 @@
-# Ignore all JSON output files
-*-summary.json
+# Ignore all JSON output files in tickers/
+tickers/
 
 # Ignore Python virtual environments
 .venv/
 
-git push origin master# Ignore Python lock and config files except poetry.lock, pyproject.toml, and .python-version
+# Ignore Python lock and config files except poetry.lock, pyproject.toml, and .python-version
 Pipfile
 Pipfile.lock
 

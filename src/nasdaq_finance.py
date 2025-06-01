@@ -7,6 +7,7 @@ from time import sleep
 import json
 import argparse
 from random import randint
+import os
 
 def parse_finance_page(ticker):
     """
@@ -33,8 +34,8 @@ def parse_finance_page(ticker):
 
         data = response.json()
         summary_data = data.get("data", {})
-        if not summary_data:
-            raise ValueError("No data found for ticker")
+        if not summary_data or not summary_data.get("summaryData"):
+            raise ValueError(f"Le ticker '{ticker}' n'est pas listé ou n'existe pas sur le NASDAQ.")
 
         # Extraction des informations principales
         company_name = summary_data.get("summaryData", {}).get("Name", {}).get("value", "")
@@ -58,17 +59,21 @@ def parse_finance_page(ticker):
 
     except Exception as e:
         print(f"Failed to process the request, Exception: {e}")
+        os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'tickers'), exist_ok=True)
+        with open(os.path.join(os.path.dirname(__file__), '..', 'tickers', f'{ticker}-summary.json'), 'w') as fp:
+            json.dump({"error": str(e)}, fp, indent=4, ensure_ascii=False)
         return {}
 
 if __name__=="__main__":
 
-	argparser = argparse.ArgumentParser()
-	argparser.add_argument('ticker',help = 'Company stock symbol')
-	args = argparser.parse_args()
-	ticker = args.ticker
-	print("Fetching data for %s"%(ticker))
-	scraped_data = parse_finance_page(ticker)
-	print("Writing scraped data to output file")
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument('ticker',help = 'Company stock symbol')
+    args = argparser.parse_args()
+    ticker = args.ticker
+    print("Fetching data for %s"%(ticker))
+    scraped_data = parse_finance_page(ticker)
+    print("Writing scraped data to output file")
 
-	with open('%s-summary.json'%(ticker),'w') as fp:
-		json.dump(scraped_data,fp,indent = 4,ensure_ascii=False)
+    os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'tickers'), exist_ok=True)
+    with open(os.path.join(os.path.dirname(__file__), '..', 'tickers', f'{ticker}-summary.json'),'w') as fp:
+        json.dump(scraped_data,fp,indent = 4,ensure_ascii=False)

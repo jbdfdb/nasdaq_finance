@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>NASDAQ Terminal</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="/static/app.js" defer></script>
+    <style>
+        body {
+            background: #181c20;
+            color: #e0e0e0;
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #23272b;
+            padding: 1em 2em;
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffb300;
+            letter-spacing: 2px;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2em;
+            gap: 2em;
+        }
+        .left, .right {
+            flex: 1 1 350px;
+            min-width: 320px;
+        }
+        .search-bar {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+        #search {
+            flex: 1;
+            padding: 0.5em;
+            font-size: 1.1em;
+            background: #23272b;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 4px;
+        }
+        #results {
+            background: #23272b;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1em;
+        }
+        #results li {
+            padding: 0.5em 1em;
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+            transition: background 0.2s;
+        }
+        #results li:hover {
+            background: #ffb300;
+            color: #23272b;
+        }
+        #details {
+            background: #23272b;
+            border-radius: 4px;
+            padding: 1em;
+            margin-bottom: 1em;
+        }
+        .lists {
+            display: flex;
+            gap: 2em;
+        }
+        .list-block {
+            background: #23272b;
+            border-radius: 4px;
+            padding: 1em;
+            flex: 1 1 200px;
+        }
+        .list-block h2 {
+            color: #ffb300;
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+        .list-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .list-block li {
+            padding: 0.3em 0;
+            border-bottom: 1px solid #333;
+        }
+        .btn {
+            background: #ffb300;
+            color: #23272b;
+            border: none;
+            border-radius: 3px;
+            padding: 0.4em 1em;
+            margin-right: 0.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #ffd54f;
+        }
+        .btn[style*="background:#b71c1c"] {
+            background: #b71c1c !important;
+            color: #fff !important;
+            font-size: 1em;
+            border-radius: 50%;
+            padding: 0 0.6em;
+            margin-left: 0.5em;
+        }
+        .chart-block {
+            background: #23272b;
+            border-radius: 4px;
+            padding: 1em;
+            margin-bottom: 1em;
+        }
+        .duration-select {
+            margin-bottom: 1em;
+        }
+        @media (max-width: 900px) {
+            main { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>NASDAQ Terminal</header>
+    <main>
+        <section class="left">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Ticker ou nom d'entreprise...">
+            </div>
+            <ul id="results"></ul>
+            <div id="details"></div>
+            <div class="chart-block" style="display:none" id="chart-block">
+                <div class="duration-select">
+                    <label for="duration">Durée :</label>
+                    <select id="duration">
+                        <option value="1d">Intraday</option>
+                        <option value="5d">Weekly</option>
+                        <option value="1m">Monthly</option>
+                        <option value="6m">Last 6 months</option>
+                        <option value="1y">Yearly</option>
+                        <option value="5y">Last 5 years</option>
+                        <option value="max">Max</option>
+                    </select>
+                </div>
+                <canvas id="priceChart" width="400" height="200"></canvas>
+                <div id="chart-info" style="color:#ffb300; margin-top:0.5em; font-size:0.95em;"></div>
+            </div>
+        </section>
+        <section class="right">
+            <div class="lists">
+                <div class="list-block">
+                    <h2>Portefeuille</h2>
+                    <ul id="portfolio"></ul>
+                </div>
+                <div class="list-block">
+                    <h2>Surveillance</h2>
+                    <ul id="watchlist"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="portfolio-value" style="color:#ffb300;font-weight:bold;font-size:1.2em;margin-bottom:0.5em;"></div>
+</body>
+</html>
